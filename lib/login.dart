@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class Signup extends StatelessWidget {
-  Signup({super.key});
+class Login extends StatelessWidget {
+  Login({super.key});
 
   final TextEditingController userNamecontroller = TextEditingController();
   final TextEditingController emailcontroller = TextEditingController();
@@ -37,7 +37,7 @@ class Signup extends StatelessWidget {
           },
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
         ),
-        title: Text("SignUp", style: TextStyle(color: Colors.white)),
+        title: Text("LogIn", style: TextStyle(color: Colors.white)),
         centerTitle: true,
       ),
       body: Stack(
@@ -59,36 +59,6 @@ class Signup extends StatelessWidget {
                   children: [
                     Image.asset("assets/jpg/G&R.jpg", height: 425),
                     SizedBox(height: 25),
-
-                    TextFormField(
-                      controller: userNamecontroller,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Username",
-                        iconColor: Color.fromARGB(255, 89, 6, 0),
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Username is required';
-                        }
-                        if (!usernameRegExp.hasMatch(value.trim())) {
-                          return 'Username must start with a letter & be at least 3 characters';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 24),
 
                     TextFormField(
                       controller: emailcontroller,
@@ -113,36 +83,6 @@ class Signup extends StatelessWidget {
                         }
                         if (!emailRegExp.hasMatch(value.trim())) {
                           return "Enter a valid email address";
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 24),
-
-                    TextFormField(
-                      controller: phcontroller,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Phone Number",
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Phone number is required';
-                        }
-                        if (!phoneRegExp.hasMatch(value.trim())) {
-                          return 'Enter a valid 10-digit phone number';
                         }
                         return null;
                       },

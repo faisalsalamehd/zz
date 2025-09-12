@@ -65,7 +65,7 @@ class asd extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 100),
+                SizedBox(height: 80),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, RoutesStrings.login);
@@ -85,7 +85,34 @@ class asd extends StatelessWidget {
                     height: 100,
                     child: Center(
                       child: Text(
-                        "Enter",
+                        "Login",
+                        style: TextStyle(color: Colors.white, fontSize: 35),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25),
+
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RoutesStrings.signup);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    width: 150,
+                    height: 100,
+                    child: Center(
+                      child: Text(
+                        "SignUp",
                         style: TextStyle(color: Colors.white, fontSize: 35),
                       ),
                     ),
