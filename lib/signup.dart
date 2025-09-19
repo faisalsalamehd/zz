@@ -43,7 +43,7 @@ class Signup extends StatelessWidget {
       body: Stack(
         children: [
           SizedBox.expand(
-            child: Image.asset("assets/png/Flower.png", fit: BoxFit.cover),
+            child: Image.asset("assets/jpg/LP!.jpg", fit: BoxFit.cover),
           ),
 
           Container(color: Colors.black.withOpacity(0.3)),
@@ -57,8 +57,7 @@ class Signup extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Image.asset("assets/jpg/G&R.jpg", height: 425),
-                    SizedBox(height: 25),
+                    SizedBox(height: 440),
 
                     TextFormField(
                       controller: userNamecontroller,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zz/routes/routes.dart';
 import 'package:zz/routes/routes_strings.dart';
 
-class asd extends StatelessWidget {
-  const asd({super.key});
+class welcome extends StatelessWidget {
+  const welcome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +11,8 @@ class asd extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background Image
-          Image.asset(
-            'assets/png/G&RP.png', // make sure to add this image in your assets folder
-            fit: BoxFit.cover,
-          ),
-          // Dark overlay to make text readable
+          Image.asset('assets/jpg/Stage.jpg', fit: BoxFit.cover),
           Container(color: Colors.black.withOpacity(0.5)),
-          // Content
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -42,7 +36,7 @@ class asd extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "Guns",
+                  "Concerts",
                   style: TextStyle(
                     color: Colors.yellow,
                     fontSize: 38,
@@ -50,7 +44,7 @@ class asd extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "&",
+                  "on",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 38,
@@ -58,7 +52,7 @@ class asd extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Roses 🎸",
+                  "Rocks 🎸",
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 38,

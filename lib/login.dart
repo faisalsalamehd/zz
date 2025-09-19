@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:zz/routes/routes_strings.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -43,7 +44,7 @@ class Login extends StatelessWidget {
       body: Stack(
         children: [
           SizedBox.expand(
-            child: Image.asset("assets/png/Flower.png", fit: BoxFit.cover),
+            child: Image.asset("assets/jpg/LP.jpg", fit: BoxFit.cover),
           ),
 
           Container(color: Colors.black.withOpacity(0.3)),
@@ -57,8 +58,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Image.asset("assets/jpg/G&R.jpg", height: 425),
-                    SizedBox(height: 25),
+                    SizedBox(height: 600),
 
                     TextFormField(
                       controller: emailcontroller,
@@ -139,9 +139,11 @@ class Login extends StatelessWidget {
                                 "Form submitted successfully ✅",
                                 style: TextStyle(fontSize: 22),
                               ),
+
                               backgroundColor: Colors.green,
                             ),
                           );
+                          Navigator.pushNamed(context, RoutesStrings.concert);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
