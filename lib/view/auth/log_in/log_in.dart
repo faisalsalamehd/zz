@@ -1,10 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:zz/core/theme/app_color.dart';
-import 'package:zz/data/models/login_response.dart';
-import 'package:zz/data/repo/log_in_repo.dart';
-import 'package:zz/routes/routes_strings.dart';
 import 'package:zz/utils/helpers/validations.dart';
-import 'package:zz/utils/storage_manager.dart';
+import 'package:http/http.dart' as http;
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -17,8 +17,16 @@ class _LogInState extends State<LogIn> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  final bool _isLoading = false;
   bool _obscurePassword = true;
+  String ss = "";
+  void search( String search)async{
+    http.Response searchResponse = await http .get (
+      Uri .parse ("'https://dummyjson.com/products'/search?q=$search")
+    );
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +74,10 @@ class _LogInState extends State<LogIn> {
                     child: Column(
                       children: [
                         TextFormField(
+                          onChanged: (value) {
+                            ss =value;
+                            search(ss);
+                          },
                           controller: _usernameController,
                           decoration: InputDecoration(
                             labelText: 'User Name',
@@ -107,37 +119,58 @@ class _LogInState extends State<LogIn> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (!_formKey.currentState!.validate()) {
-                                return;
-                              }
-                              if (_isLoading) return;
-                              setState(() {
-                                _isLoading = true;
-                              });
+                              http.Response response = await http.post(
+                                Uri.parse("https://dummyjson.com/user/login"),
+                                headers: {"Content-Type": "application/json"},
+                                body: jsonEncode({
+                                  "username": "emilys",
+                                  "password": "emilyspass",
+                                  "expiresInMins": 10,
+                                }),
+                              );
+                              Map<String, dynamic> responseData = json.decode(
+                                response.body,
+                              );
+                              // log(responseData['accessToken']);
+                              http.Response res2 = await http.get(
+                                Uri.parse("https://dummyjson.com/auth/me"),
+                                headers: {
+                                  "Content-Type": "application/json",
+                                  "Authorization":
+                                      "Bearer ${responseData['accessToken']}",
+                                },
+                              );
+                              //log(res2.body);
+                              // http.Response res3 = await http.post(
+                              //   Uri.parse("https://dummyjson.com/auth/refresh"),
+                              //   //  headers:  { 'Content-Type': 'application/json'},
+                              //   body: {
+                              //     "refreshToken :${responseData['refreshToken']}",
+                              //   },
+                              // );
+                              //log(res3.body);
+                              http.Response res4 = await http.get(
+                                Uri.parse ("https://dummyjson.com/products",
+                                )
+                              );
+                              //log(res4.body);
+http.Response res5 = await http.get(
+                                Uri.parse ("https://dummyjson.com/products/1",
+                                )
+                              );
+                             // log(res5.body);
+                              http.Response res6 = await http . get(
+                                Uri.parse ("https://dummyjson.com/products/search?q=phone")
+                              );
+                             // log(res6.body);
+                              http.Response res7 = await http.get(
+                                Uri.parse ("https://dummyjson.com/products?limit=10&skip=10&select=title,price")
+                              );
+                              log(res7.body);
 
-                              final username = _usernameController.text.trim();
-                              final password = _passwordController.text.trim();
-                              LoginResponse response = await LoginRepo().login(
-                                username: username,
-                                password: password,
-                              );
-                              // Save user session in storage
-                              StorageManager storage = StorageManager();
-                              storage.loginUser(
-                                token: response.accessToken,
-                                userData: response.toJson(),
-                              );
-                              // Simulate a delay for demonstration purposes
-                              await Future.delayed(const Duration(seconds: 2));
-                              if (response.accessToken.isNotEmpty) {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                Navigator.pushReplacementNamed(
-                                  context,
-                                  RoutesStrings.home,
-                                );
-                              }
+
+
+
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.primaryColor,
@@ -155,7 +188,9 @@ class _LogInState extends State<LogIn> {
                                     ),
                                   ),
                           ),
+                          
                         ),
+                        
                       ],
                     ),
                   ),
