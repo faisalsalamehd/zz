@@ -1,241 +1,250 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:zz/routes/routes_strings.dart';
 
-class Signup extends StatelessWidget {
-  Signup({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
-  final TextEditingController userNamecontroller = TextEditingController();
-  final TextEditingController emailcontroller = TextEditingController();
-  final TextEditingController phcontroller = TextEditingController();
-  final TextEditingController passWordcontroller = TextEditingController();
-  final GlobalKey<FormState> form1 = GlobalKey<FormState>();
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool _obscurePassword = true;
+  bool _offersChecked = true;
 
   final emailRegExp = RegExp(
     r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     caseSensitive: false,
   );
 
-  final usernameRegExp = RegExp(r'^[a-zA-Z][a-zA-Z0-9_]{2,}$');
+  final nameRegExp = RegExp(r'^[a-zA-Z]{2,}$'); // at least 2 letters
 
-  final passwordRegExp = RegExp(
-    r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-  );
-
-  final phoneRegExp = RegExp(r'^[0-9]{10}$');
+  final Color mainColor = const Color.fromARGB(255, 255, 97, 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
         ),
-        title: Text("SignUp", style: TextStyle(color: Colors.white)),
+        title: const Text(
+          "Welcome to talabat",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
-      body: Stack(
-        children: [
-          SizedBox.expand(
-            child: Image.asset("assets/jpg/LP!.jpg", fit: BoxFit.cover),
-          ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 16),
+              const Text(
+                "Create your account",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(height: 24),
 
-          Container(color: Colors.black.withOpacity(0.3)),
+              // First Name
+              TextFormField(
+                controller: firstNameController,
+                decoration: const InputDecoration(labelText: "First name"),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'First name is required';
+                  }
+                  if (!nameRegExp.hasMatch(value.trim())) {
+                    return 'Enter a valid first name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
 
-          SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.fromLTRB(16, kToolbarHeight + 40, 16, 16),
-              child: Form(
-                key: form1,
+              // Last Name
+              TextFormField(
+                controller: lastNameController,
+                decoration: const InputDecoration(labelText: "Last name"),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Last name is required';
+                  }
+                  if (!nameRegExp.hasMatch(value.trim())) {
+                    return 'Enter a valid last name';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
 
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(height: 440),
+              // Email
+              TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: "Email"),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Email is required';
+                  }
+                  if (!emailRegExp.hasMatch(value.trim())) {
+                    return "Enter a valid email address";
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
 
-                    TextFormField(
-                      controller: userNamecontroller,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Username",
-                        iconColor: Color.fromARGB(255, 89, 6, 0),
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Username is required';
-                        }
-                        if (!usernameRegExp.hasMatch(value.trim())) {
-                          return 'Username must start with a letter & be at least 3 characters';
-                        }
-                        return null;
-                      },
+              // Password
+              TextFormField(
+                controller: passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  suffixIcon: TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                    child: Text(
+                      _obscurePassword ? "Show" : "Hide",
+                      style: TextStyle(color: mainColor),
                     ),
-                    SizedBox(height: 24),
+                  ),
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Password is required';
+                  }
+                  if (value.trim().length < 6 || value.trim().length > 16) {
+                    return 'Password should be between 6 and 16 characters';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                "Passwords should be between 6 and 16 characters",
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
 
-                    TextFormField(
-                      controller: emailcontroller,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Email",
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Email is required';
-                        }
-                        if (!emailRegExp.hasMatch(value.trim())) {
-                          return "Enter a valid email address";
-                        }
-                        return null;
-                      },
+              const SizedBox(height: 16),
+
+              // Offers Checkbox
+              Row(
+                children: [
+                  Checkbox(
+                    value: _offersChecked,
+                    activeColor: mainColor,
+                    onChanged: (value) {
+                      setState(() {
+                        _offersChecked = value ?? false;
+                      });
+                    },
+                  ),
+                  const Expanded(
+                    child: Text(
+                      "Yes, I want to receive offers and discounts",
+                      style: TextStyle(fontSize: 14),
                     ),
-                    SizedBox(height: 24),
+                  ),
+                ],
+              ),
 
-                    TextFormField(
-                      controller: phcontroller,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Phone Number",
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Phone number is required';
-                        }
-                        if (!phoneRegExp.hasMatch(value.trim())) {
-                          return 'Enter a valid 10-digit phone number';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 24),
+              const SizedBox(height: 16),
 
-                    TextFormField(
-                      controller: passWordcontroller,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromARGB(255, 89, 6, 0),
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        border: OutlineInputBorder(),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                        labelText: "Password",
-                        fillColor: Colors.white.withOpacity(0.8),
-                        filled: true,
-                      ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Password is required';
-                        }
-                        if (!passwordRegExp.hasMatch(value.trim())) {
-                          return 'Password must be 8+ chars, include upper, lower, number & special char';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 24),
+              // Create Account Button
+              ElevatedButton(
+                onPressed: () async {
+                  if (!formKey.currentState!.validate()) return;
 
-                    ElevatedButton(
-                      onPressed: () {
-                        try {
-                          FirebaseAuth.instance.createUserWithEmailAndPassword(
-                            email: emailcontroller.text,
-                            password: passWordcontroller.text,
-                          );
-                        } catch (e) {
-                          print(e);
-                        }
+                  try {
+                    UserCredential userCredential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
 
-                        if (form1.currentState!.validate() &&
-                            emailcontroller.text.trim() ==
-                                FirebaseAuth.instance.currentUser?.email) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                "Form submitted successfully ✅",
-                                style: TextStyle(fontSize: 22),
-                              ),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Center(
-                                child: Text(
-                                  "Form didn't submit ❌",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                              ),
-                              backgroundColor: Color.fromARGB(255, 89, 6, 0),
-                            ),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 89, 6, 0),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 40,
-                          vertical: 16,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
+                    String fullName =
+                        "${firstNameController.text.trim()} ${lastNameController.text.trim()}";
+                    await userCredential.user!.updateDisplayName(fullName);
+                    await userCredential.user!.reload();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Sign Up successful ✅ Please Sign In"),
+                        backgroundColor: Colors.green,
                       ),
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                    );
+                    Navigator.pushNamed(context, RoutesStrings.welcome);
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Sign Up failed ❌: $e"),
+                        backgroundColor: Colors.red,
                       ),
-                    ),
-                  ],
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: mainColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Create your account",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
-            ),
+
+              const SizedBox(height: 16),
+              Wrap(
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  const Text(
+                    "By creating an account you agree to the ",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Privacy Policy",
+                      style: TextStyle(fontSize: 14, color: mainColor),
+                    ),
+                  ),
+                  const Text(
+                    " and to the",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Terms of Use",
+                      style: TextStyle(fontSize: 14, color: mainColor),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

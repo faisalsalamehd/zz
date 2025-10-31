@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "662149771766",
-    "project_id": "node-b0c72",
-    "storage_bucket": "node-b0c72.firebasestorage.app"
+    "project_number": "938222048761",
+    "project_id": "talabat-3d73b",
+    "storage_bucket": "talabat-3d73b.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:662149771766:android:9fb5b9a756b678459697d7",
+        "mobilesdk_app_id": "1:938222048761:android:dec79d097d3baa7ac9d928",
         "android_client_info": {
           "package_name": "com.hamoodah.zz"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAKy2MQx_OdatMQC-d81L6cGlV31aNHOhU"
+          "current_key": "AIzaSyDh8cbBbPqQm36qn6_zAEzfuwmXPZ_1Hpw"
         }
       ],
       "services": {

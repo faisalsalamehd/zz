@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAKy2MQx_OdatMQC-d81L6cGlV31aNHOhU',
-    appId: '1:662149771766:android:9fb5b9a756b678459697d7',
-    messagingSenderId: '662149771766',
-    projectId: 'node-b0c72',
-    storageBucket: 'node-b0c72.firebasestorage.app',
+    apiKey: 'AIzaSyDh8cbBbPqQm36qn6_zAEzfuwmXPZ_1Hpw',
+    appId: '1:938222048761:android:dec79d097d3baa7ac9d928',
+    messagingSenderId: '938222048761',
+    projectId: 'talabat-3d73b',
+    storageBucket: 'talabat-3d73b.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDTAbBDn-qe-Qyz1ezKmP406zkJ9GXUSqo',
-    appId: '1:662149771766:ios:9e26c172cb61b56b9697d7',
-    messagingSenderId: '662149771766',
-    projectId: 'node-b0c72',
-    storageBucket: 'node-b0c72.firebasestorage.app',
+    apiKey: 'AIzaSyBahkWU7Tc_f2_hQX-gEaG-6kZjO-ILabE',
+    appId: '1:938222048761:ios:a029ad219fd93176c9d928',
+    messagingSenderId: '938222048761',
+    projectId: 'talabat-3d73b',
+    storageBucket: 'talabat-3d73b.firebasestorage.app',
     iosBundleId: 'com.hamoodah.zz',
   );
+
 }
