@@ -1,42 +1,18 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:zz/firebase_options.dart';
-import 'package:zz/routes/routes.dart';
-import 'package:zz/routes/routes_strings.dart';
-import 'messeages.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'custom_illustrations.dart';
+import 'package:get/get.dart';
+import 'package:zz/routes/routes_string.dart';
+import 'package:zz/screens/splash/splash_binding.dart';
+import 'package:zz/screens/splash/splash_view.dart';
+import 'package:zz/widget/email_login_view.dart';
+import 'package:zz/widget/forget_password.dart';
+import 'package:zz/widget/new_password.dart';
+import 'package:zz/widget/welcome_view.dart';
+import 'package:zz/widget/register_View.dart';
+import 'package:zz/widget/onbordaring1.dart';
+import 'package:zz/widget/onbordaring2.dart';
+import 'package:zz/widget/onbordaring3.dart';
 
-Future<void> requestAndroidNotificationPermission() async {
-  if (await Permission.notification.isDenied) {
-    await Permission.notification.request();
-  }
-}
-
-/// 🔹 Annotate background handler so it's not tree-shaken
-@pragma('vm:entry-point')
-Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  print("📥 Background message: ${message.messageId}");
-}
-
-void _printFCMToken() async {
-  String? token = await FirebaseMessaging.instance.getToken();
-  print("🔥 Direct token check in main: $token");
-}
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // 🔹 Ask for Android 13+ notification permission
-  await requestAndroidNotificationPermission();
-
-  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
-
-  _printFCMToken();
-
+void main() {
   runApp(const MyApp());
 }
 
@@ -45,19 +21,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Talabat',
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xFFFF6B35),
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFFFF6B35),
-          secondary: const Color(0xFFFF6B35),
+      title: 'Fresh Cart',
+      initialRoute: RoutesStrings.splash,
+      getPages: [
+        GetPage(
+          name: RoutesStrings.splash,
+          page: () => const SplashView(),
+          binding: SplashBinding(),
         ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      routes: routes,
-      initialRoute: RoutesStrings.welcome,
+        GetPage(name: RoutesStrings.view1, page: () => const View1()),
+        GetPage(name: RoutesStrings.view2, page: () => const View2()),
+        GetPage(name: RoutesStrings.view3, page: () => const View3()),
+        GetPage(name: RoutesStrings.welcome, page: () => const WelcomeView()),
+        GetPage(name: RoutesStrings.register, page: () => const RegisterView()),
+        GetPage(name: RoutesStrings.login, page: () => const EmailLoginView()),
+        GetPage(
+          name: RoutesStrings.forgotPassword,
+          page: () => const ForgetPassword(),
+        ),
+        GetPage(
+          name: RoutesStrings.newPassword,
+          page: () => const NewPassword(),
+        ),
+      ],
     );
   }
 }
