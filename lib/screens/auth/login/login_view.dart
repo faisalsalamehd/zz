@@ -35,15 +35,15 @@ class LoginView extends StatelessWidget {
                     "Login",
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 30),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 45),
 
                   // Email field
-                  const Text("Email Address"),
+                  const Text("Username"),
                   const SizedBox(height: 8),
                   TextFormField(
+                    controller: ctrl.usernameController,
                     decoration: InputDecoration(
-                      hintText: "example@gmail.com",
+                      hintText: "Username",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -56,6 +56,7 @@ class LoginView extends StatelessWidget {
                   const Text("Password"),
                   const SizedBox(height: 8),
                   TextFormField(
+                    controller: ctrl.passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Enter your password",
@@ -93,7 +94,9 @@ class LoginView extends StatelessWidget {
 
                   // Login button
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ctrl.login();
+                    },
                     child: Container(
                       height: 50,
                       width: double.infinity,

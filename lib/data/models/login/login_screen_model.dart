@@ -1,8 +1,8 @@
 class LoginScreenModel {
-  final String username;
-  final String password;
-  final bool rememberMe;
-  final int expiresInMins;
+  String username;
+  String password;
+  bool rememberMe;
+  int expiresInMins;
 
   LoginScreenModel({
     required this.username,
@@ -15,7 +15,6 @@ class LoginScreenModel {
     return {
       'username': username,
       'password': password,
-      'expiresInMins': expiresInMins,
     };
   }
 }
