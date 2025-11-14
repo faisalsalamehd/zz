@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:zz/routes/routes_string.dart';
-import 'package:zz/screens/auth/login/login_binding.dart';
-import 'package:zz/screens/auth/login/login_view.dart';
 import 'package:zz/screens/splash/splash_binding.dart';
 import 'package:zz/screens/splash/splash_view.dart';
 
@@ -11,10 +9,5 @@ List<GetPage<dynamic>> getPages = [
     name: RoutesStrings.splash,
     page: () => const SplashView(),
     binding: SplashBinding(),
-  ),
-  GetPage(
-    name: RoutesStrings.login,
-    page: () => LoginView(),
-    binding: LoginBinding(),
   ),
 ];

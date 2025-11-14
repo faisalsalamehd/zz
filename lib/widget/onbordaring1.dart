@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zz/widget/login_view.dart';
+import 'package:zz/widget/welcome_view.dart';
 import 'package:zz/widget/onbordaring2.dart';
 import 'package:zz/widget/onbordaring3.dart'; 
 
@@ -48,7 +48,7 @@ class View1 extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.off(() => const LoginViewPage()); 
+                      Get.off(() => const WelcomeView()); 
                     },
                     child: const Text(
                       "Skip",

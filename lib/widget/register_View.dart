@@ -82,7 +82,7 @@ class RegisterView extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Get.offNamed('/login'),
+          onPressed: () => Get.offNamed('/welcome'),
         ),
         title: const Text(
           'Signup',
@@ -170,20 +170,22 @@ class RegisterView extends StatelessWidget {
                 const SizedBox(height: 15),
 
                 // Checkbox for terms
-                Obx(() => Row(
-                      children: [
-                        Checkbox(
-                          value: controller.agreeTerms.value,
-                          onChanged: (_) => controller.toggleAgree(context),
+                Obx(
+                  () => Row(
+                    children: [
+                      Checkbox(
+                        value: controller.agreeTerms.value,
+                        onChanged: (_) => controller.toggleAgree(context),
+                      ),
+                      const Expanded(
+                        child: Text(
+                          "I agree with Terms & Conditions",
+                          style: TextStyle(fontSize: 16),
                         ),
-                        const Expanded(
-                          child: Text(
-                            "I agree with Terms & Conditions",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ],
+                  ),
+                ),
 
                 const SizedBox(height: 25),
 

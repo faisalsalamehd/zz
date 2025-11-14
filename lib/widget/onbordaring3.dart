@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zz/widget/login_view.dart';
+import 'package:zz/widget/welcome_view.dart';
 import 'package:zz/widget/onbordaring2.dart';
 
 class View3 extends StatelessWidget {
@@ -24,19 +24,13 @@ class View3 extends StatelessWidget {
                   const SizedBox(height: 20),
                   const Text(
                     "Shop Smart. Eat Fresh",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   const Text(
                     "Find the favorites you want by your location or neighborhood.",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -45,9 +39,9 @@ class View3 extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                                    GestureDetector(
+                  GestureDetector(
                     onTap: () {
-                      Get.offAll(() => const LoginViewPage());
+                      Get.offAll(() => const WelcomeView());
                     },
                     child: const Text(
                       "Skip",
@@ -71,7 +65,7 @@ class View3 extends StatelessWidget {
 
                   GestureDetector(
                     onTap: () {
-                      Get.to(() => const LoginViewPage());
+                      Get.to(() => const WelcomeView());
                     },
                     child: const Text(
                       "Next",
