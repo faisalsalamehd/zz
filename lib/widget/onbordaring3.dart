@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zz/widget/welcome_view.dart';
+import 'package:zz/screens/welcome/welcome_view.dart';
 import 'package:zz/widget/onbordaring2.dart';
 
 class View3 extends StatelessWidget {

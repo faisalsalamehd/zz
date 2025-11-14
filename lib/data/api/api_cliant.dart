@@ -16,7 +16,6 @@ class ApiClient {
             }
           : {'Content-Type': 'application/json'},
     );
-    
     return response;
   }
 }

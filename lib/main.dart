@@ -6,7 +6,7 @@ import 'package:zz/screens/splash/splash_binding.dart';
 import 'package:zz/screens/splash/splash_view.dart';
 import 'package:zz/widget/forget_password.dart';
 import 'package:zz/widget/new_password.dart';
-import 'package:zz/widget/welcome_view.dart';
+import 'package:zz/screens/welcome/welcome_view.dart';
 import 'package:zz/widget/register_View.dart';
 import 'package:zz/widget/onbordaring1.dart';
 import 'package:zz/widget/onbordaring2.dart';

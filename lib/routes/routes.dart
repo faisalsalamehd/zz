@@ -5,7 +5,7 @@ import 'package:zz/screens/auth/login/login_binding.dart';
 import 'package:zz/screens/auth/login/login_view.dart';
 import 'package:zz/screens/splash/splash_binding.dart';
 import 'package:zz/screens/splash/splash_view.dart';
-import 'package:zz/widget/welcome_view.dart';
+import 'package:zz/screens/welcome/welcome_view.dart';
 
 List<GetPage<dynamic>> getPages = [
   GetPage(
