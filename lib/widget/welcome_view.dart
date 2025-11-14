@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:zz/routes/routes_string.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});
@@ -46,7 +47,7 @@ class WelcomeView extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.toNamed('/login');
+                              Get.toNamed(RoutesStrings.login);
                             },
                             borderRadius: BorderRadius.circular(13),
                             child: Container(
